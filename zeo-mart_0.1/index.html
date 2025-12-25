@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoMart - Complete E-Commerce Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <div
+      class="bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-3 text-center text-sm"
+    >
+      <p>🎉 FREE Shipping on orders above ₹500 | 7-day returns & exchanges</p>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex items-center justify-between gap-4">
+          <div
+            class="flex items-center gap-2 cursor-pointer"
+            onclick="goToPage('home')"
+          >
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-lg">E</span>
+            </div>
+            <span class="font-bold text-xl gradient-text hidden sm:inline"
+              >EcoMart</span
+            >
+          </div>
+
+          <div class="flex-1 max-w-md">
+            <div class="relative">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search 200+ products..."
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+              />
+              <i
+                class="fas fa-search absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+              ></i>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button
+              class="relative text-gray-700 hover:text-orange-500 transition text-lg"
+              onclick="goToPage('wishlist')"
+            >
+              <i class="fas fa-heart"></i>
+              <span
+                id="wishlistCount"
+                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden"
+                >0</span
+              >
+            </button>
+
+            <button
+              class="relative text-gray-700 hover:text-orange-500 transition text-lg"
+              onclick="toggleCart()"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                id="cartCount"
+                class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden"
+                >0</span
+              >
+            </button>
+
+            <div class="relative">
+              <button
+                id="profileBtn"
+                class="text-gray-700 hover:text-orange-500 transition text-lg"
+                onclick="toggleProfileMenu()"
+              >
+                <i class="fas fa-user-circle text-2xl"></i>
+              </button>
+              <div
+                id="profileDropdown"
+                class="profile-dropdown bg-white rounded-lg shadow-lg"
+              >
+                <div id="loggedOutMenu">
+                  <button
+                    onclick="goToPage('login')"
+                    class="w-full text-left px-4 py-3 hover:bg-gray-100 border-b"
+                  >
+                    <i class="fas fa-sign-in-alt mr-2"></i> Login
+                  </button>
+                  <button
+                    onclick="goToPage('signup')"
+                    class="w-full text-left px-4 py-3 hover:bg-gray-100"
+                  >
+                    <i class="fas fa-user-plus mr-2"></i> Sign Up
+                  </button>
+                </div>
+                <div id="loggedInMenu" class="hidden">
+                  <div class="px-4 py-3 border-b">
+                    <p class="text-sm font-semibold" id="userNameDisplay">
+                      User
+                    </p>
+                  </div>
+                  <button
+                    onclick="goToPage('profile')"
+                    class="w-full text-left px-4 py-3 hover:bg-gray-100 border-b"
+                  >
+                    <i class="fas fa-user mr-2"></i> My Profile
+                  </button>
+                  <button
+                    onclick="goToPage('myorders')"
+                    class="w-full text-left px-4 py-3 hover:bg-gray-100 border-b"
+                  >
+                    <i class="fas fa-shopping-bag mr-2"></i> My Orders
+                  </button>
+                  <button
+                    onclick="logout()"
+                    class="w-full text-left px-4 py-3 hover:bg-red-50 text-red-600"
+                  >
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+      <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Banner Carousel -->
+        <div
+          class="banner mb-8 relative w-full h-[220px] sm:h-[300px] md:h-[420px] lg:h-[520px]"
+          id="bannerCarousel"
+        >
+          <div
+            class="carousel-inner w-full h-full flex transition-transform duration-500 ease-in-out"
+            id="carouselInner"
+          >
+            <!-- Slide 1 -->
+            <div
+              class="carousel-item w-full h-full flex-shrink-0 flex items-center justify-center text-white text-center relative"
+              style="
+                background-image: url('./public/eco_banner1.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              "
+            >
+              <div class="absolute inset-0 bg-black/40"></div>
+              <div class="relative z-10">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                  Summer Collection
+                </h2>
+                <p class="text-lg sm:text-xl md:text-2xl mb-6">
+                  Get up to 50% off
+                </p>
+                <button
+                  onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})"
+                  class="px-8 py-3 bg-white text-orange-500 font-bold rounded-lg hover:bg-gray-100"
+                >
+                  Shop Now
+                </button>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div
+              class="carousel-item w-full h-full flex-shrink-0 flex items-center justify-center text-white text-center relative"
+              style="
+                background-image: url('https://media.istockphoto.com/id/1205511045/photo/online-shopping-concept-desktop-with-computer-table-shopping-bags-smartphone-present-box-3d.jpg?s=612x612&w=0&k=20&c=Oin6jzaXWlnunOdK6UqXgQOAwCqQ0Svqx2saCdLkWJo=');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              "
+            >
+              <div class="absolute inset-0 bg-black/30"></div>
+              <div class="relative z-10">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                  Electronics
+                </h2>
+                <p class="text-lg sm:text-xl md:text-2xl mb-6">
+                  Latest Gadgets
+                </p>
+                <button
+                  onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})"
+                  class="px-8 py-3 bg-white text-blue-500 font-bold rounded-lg hover:bg-gray-100"
+                >
+                  Explore
+                </button>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div
+              class="carousel-item w-full h-full flex-shrink-0 flex items-center justify-center text-white text-center relative"
+              style="
+                background-image: url('./public/fashion-banner3.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              "
+            >
+              <div class="absolute inset-0 bg-black/30"></div>
+              <div class="relative z-10">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                  Fashion
+                </h2>
+                <p class="text-lg sm:text-xl md:text-2xl mb-6">
+                  Trending Styles
+                </p>
+                <button
+                  onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})"
+                  class="px-8 py-3 bg-white text-pink-500 font-bold rounded-lg hover:bg-gray-100"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <button
+            onclick="prevBanner()"
+            class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button
+            onclick="nextBanner()"
+            class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <!-- Dots -->
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <button
+              onclick="currentBanner = 0; updateBanner()"
+              id="dot0"
+              class="w-2 h-2 bg-white rounded-full cursor-pointer"
+            ></button>
+            <button
+              onclick="currentBanner = 1; updateBanner()"
+              id="dot1"
+              class="w-2 h-2 bg-white/50 rounded-full cursor-pointer"
+            ></button>
+            <button
+              onclick="currentBanner = 2; updateBanner()"
+              id="dot2"
+              class="w-2 h-2 bg-white/50 rounded-full cursor-pointer"
+            ></button>
+          </div>
+        </div>
+
+        <!-- Shop by Category -->
+        <div class="mb-12">
+          <h2 class="text-3xl font-bold mb-6">Shop by Category</h2>
+          <div
+            id="categoryContainer"
+            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
+          ></div>
+        </div>
+
+        <!-- Products Section -->
+        <div id="productsSection">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold">All Products</h2>
+            <select
+              id="sortSelect"
+              onchange="sortProducts()"
+              class="px-4 py-2 border border-gray-300 rounded-lg"
+            >
+              <option value="newest">Newest First</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+          <div
+            id="productsGrid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORY PAGE -->
+    <div id="category" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-8">
+        <button
+          onclick="goToPage('home')"
+          class="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg"
+        >
+          <i class="fas fa-arrow-left mr-2"></i> Back
+        </button>
+        <div class="flex justify-between items-center mb-6">
+          <h2 id="categoryTitle" class="text-3xl font-bold">Products</h2>
+          <select
+            id="categorySortSelect"
+            onchange="sortCategoryProducts()"
+            class="px-4 py-2 border border-gray-300 rounded-lg"
+          >
+            <option value="newest">Newest First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+          </select>
+        </div>
+        <div
+          id="categoryProductsGrid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        ></div>
+      </div>
+    </div>
+
+    <!-- WISHLIST PAGE -->
+    <div id="wishlist" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-8">
+        <button
+          onclick="goToPage('home')"
+          class="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg"
+        >
+          <i class="fas fa-arrow-left mr-2"></i> Back
+        </button>
+        <h2 class="text-3xl font-bold mb-6">My Wishlist</h2>
+        <div id="wishlistEmpty" class="text-center py-12 text-gray-500">
+          <i class="fas fa-heart text-5xl mb-4 block opacity-30"></i>
+          <p class="text-xl">Your wishlist is empty</p>
+          <button
+            onclick="goToPage('home')"
+            class="mt-4 px-6 py-2 bg-orange-500 text-white rounded-lg"
+          >
+            Continue Shopping
+          </button>
+        </div>
+        <div
+          id="wishlistGrid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 hidden"
+        ></div>
+      </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="login" class="page">
+      <div class="max-w-md mx-auto my-20">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <div class="text-center mb-8">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-white font-bold text-2xl">E</span>
+            </div>
+            <h2 class="text-2xl font-bold">Welcome Back</h2>
+            <p class="text-gray-600 mt-2">Login to EcoMart</p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold mb-2">Email</label>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="your@email.com"
+                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2">Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="••••••••"
+                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+            <button
+              onclick="handleLogin()"
+              class="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-3 rounded-lg"
+            >
+              Login
+            </button>
+            <button
+              onclick="demoLogin()"
+              class="w-full bg-gray-200 text-gray-900 font-bold py-2 rounded-lg text-sm"
+            >
+              Demo Login
+            </button>
+          </div>
+
+          <p class="text-center text-gray-600 mt-6">
+            Don't have account?
+            <span
+              class="text-orange-500 font-bold cursor-pointer"
+              onclick="goToPage('signup')"
+              >Sign Up</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNUP PAGE -->
+    <div id="signup" class="page">
+      <div class="max-w-md mx-auto my-20">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <div class="text-center mb-8">
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-white font-bold text-2xl">E</span>
+            </div>
+            <h2 class="text-2xl font-bold">Create Account</h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <input
+                type="text"
+                id="signupFirstName"
+                placeholder="First Name"
+                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg"
+              />
+              <input
+                type="text"
+                id="signupLastName"
+                placeholder="Last Name"
+                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg"
+              />
+            </div>
+            <input
+              type="email"
+              id="signupEmail"
+              placeholder="Email"
+              class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg"
+            />
+            <input
+              type="password"
+              id="signupPassword"
+              placeholder="Password"
+              class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg"
+            />
+            <label class="flex items-center gap-2"
+              ><input type="checkbox" id="termsCheckbox" class="w-4 h-4" /><span
+                class="text-sm"
+                >I agree to Terms</span
+              ></label
+            >
+            <button
+              onclick="handleSignup()"
+              class="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-3 rounded-lg"
+            >
+              Create Account
+            </button>
+          </div>
+
+          <p class="text-center text-gray-600 mt-6">
+            Already have account?
+            <span
+              class="text-orange-500 font-bold cursor-pointer"
+              onclick="goToPage('login')"
+              >Login</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div id="profile" class="page">
+      <div class="max-w-4xl mx-auto px-4 py-8">
+        <button
+          onclick="goToPage('home')"
+          class="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg"
+        >
+          <i class="fas fa-arrow-left mr-2"></i> Back
+        </button>
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h2 class="text-3xl font-bold mb-6">My Profile</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div
+              class="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg p-8 text-white"
+            >
+              <i class="fas fa-user-circle text-6xl mb-4 block text-center"></i>
+              <p id="profileName" class="text-2xl font-bold text-center">
+                User Name
+              </p>
+              <p id="profileEmail" class="text-center opacity-90 mt-2">
+                email@example.com
+              </p>
+            </div>
+            <div class="lg:col-span-2">
+              <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2"
+                      >First Name</label
+                    ><input
+                      type="text"
+                      id="profileFirstName"
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                      readonly
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold mb-2"
+                      >Last Name</label
+                    ><input
+                      type="text"
+                      id="profileLastName"
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <input
+                  type="email"
+                  id="profileEmailInput"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                  readonly
+                />
+                <input
+                  type="tel"
+                  id="profilePhone"
+                  placeholder="Phone"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                />
+                <input
+                  type="text"
+                  id="profileAddress"
+                  placeholder="Address"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                />
+                <button
+                  class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg"
+                >
+                  Update Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY ORDERS PAGE -->
+    <div id="myorders" class="page">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <button
+          onclick="goToPage('home')"
+          class="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg"
+        >
+          <i class="fas fa-arrow-left mr-2"></i> Back
+        </button>
+        <h2 class="text-3xl font-bold mb-6">My Orders</h2>
+
+        <div id="ordersEmpty" class="text-center py-12 text-gray-500">
+          <i class="fas fa-shopping-bag text-5xl mb-4 block opacity-30"></i>
+          <p class="text-xl">No orders yet</p>
+          <button
+            onclick="goToPage('home')"
+            class="mt-4 px-6 py-2 bg-orange-500 text-white rounded-lg"
+          >
+            Start Shopping
+          </button>
+        </div>
+
+        <div id="ordersList" class="space-y-4 hidden"></div>
+      </div>
+    </div>
+
+    <!-- PRODUCT DETAILS MODAL -->
+    <div id="productModal" class="modal">
+      <div class="modal-content p-0">
+        <div
+          class="sticky top-0 bg-white border-b flex items-center justify-between p-6"
+        >
+          <h2 id="modalTitle" class="text-2xl font-bold">Product</h2>
+          <button onclick="closeProductModal()" class="text-gray-500 text-2xl">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="p-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <div
+                class="w-full h-96 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 flex items-center justify-center text-8xl"
+              >
+                <span id="mainImg">📦</span>
+              </div>
+              <div class="flex gap-2 overflow-x-auto">
+                <button
+                  onclick="changeMainImage(0)"
+                  class="w-20 h-20 rounded-lg border-2 border-gray-300 bg-gray-100 flex items-center justify-center text-4xl"
+                >
+                  <span id="thumb0">📦</span>
+                </button>
+                <button
+                  onclick="changeMainImage(1)"
+                  class="w-20 h-20 rounded-lg border-2 border-gray-300 bg-gray-100 flex items-center justify-center text-4xl"
+                >
+                  <span id="thumb1">📦</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <p
+                id="productCategory"
+                class="text-sm text-gray-500 uppercase mb-2"
+              ></p>
+              <h1 id="productName" class="text-4xl font-bold mb-4"></h1>
+              <div class="flex items-center gap-3 mb-6">
+                <div id="productRating" class="flex"></div>
+                <span id="productRatingText" class="text-lg font-bold"></span>
+                <span id="productReviews" class="text-gray-500"></span>
+              </div>
+
+              <div class="mb-6 pb-6 border-b">
+                <div class="flex items-center gap-3 mb-2">
+                  <span
+                    id="productPrice"
+                    class="text-4xl font-bold text-orange-500"
+                  ></span>
+                  <span
+                    id="productOriginalPrice"
+                    class="text-lg text-gray-500 line-through"
+                  ></span>
+                </div>
+                <p
+                  id="productDiscount"
+                  class="text-green-600 font-semibold"
+                ></p>
+              </div>
+
+              <p id="productDescription" class="text-gray-700 mb-6"></p>
+
+              <div class="mb-6 pb-6 border-b">
+                <p
+                  id="productStock"
+                  class="text-green-600 font-semibold mb-2"
+                ></p>
+                <p class="text-gray-700">📦 Free shipping above ₹500</p>
+                <p class="text-gray-700">🔄 7-day returns</p>
+              </div>
+
+              <div class="mb-6">
+                <p class="font-semibold mb-3">Quantity:</p>
+                <div
+                  class="flex items-center border border-gray-300 rounded-lg w-fit"
+                >
+                  <button
+                    onclick="decreaseQuantity()"
+                    class="px-4 py-2 text-gray-600 hover:bg-gray-100"
+                  >
+                    −
+                  </button>
+                  <span id="quantityDisplay" class="px-6 py-2 font-semibold"
+                    >1</span
+                  >
+                  <button
+                    onclick="increaseQuantity()"
+                    class="px-4 py-2 text-gray-600 hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex gap-3 mb-6">
+                <button
+                  onclick="addToCart()"
+                  class="flex-1 bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600"
+                >
+                  <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                </button>
+                <button
+                  onclick="toggleWishlist()"
+                  id="wishlistBtn"
+                  class="flex-1 border-2 border-orange-500 text-orange-500 font-bold py-3 rounded-lg hover:bg-orange-500 hover:text-white"
+                >
+                  <i class="fas fa-heart mr-2"></i> Wishlist
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Related Products Section -->
+          <div id="relatedProductsSection" class="mt-12 border-t pt-12">
+            <h2 class="text-2xl font-bold mb-6">
+              Related Products from <span id="relatedCategory"></span>
+            </h2>
+            <div
+              id="relatedProductsGrid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            ></div>
+          </div>
+
+          <!-- Reviews Section -->
+          <div class="mt-12 border-t pt-12">
+            <h2 class="text-2xl font-bold mb-6">Customer Reviews</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div class="lg:col-span-2">
+                <div id="reviewsContainer" class="space-y-4"></div>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-6 h-fit">
+                <h3 class="font-bold text-gray-900 mb-4">Write a Review</h3>
+                <div class="mb-4">
+                  <label class="block text-sm font-semibold mb-2"
+                    >Your Rating</label
+                  >
+                  <div id="ratingStars" class="flex gap-2 text-2xl">
+                    <button
+                      class="cursor-pointer hover:text-yellow-400"
+                      onclick="setRating(1)"
+                    >
+                      ★
+                    </button>
+                    <button
+                      class="cursor-pointer hover:text-yellow-400"
+                      onclick="setRating(2)"
+                    >
+                      ★
+                    </button>
+                    <button
+                      class="cursor-pointer hover:text-yellow-400"
+                      onclick="setRating(3)"
+                    >
+                      ★
+                    </button>
+                    <button
+                      class="cursor-pointer hover:text-yellow-400"
+                      onclick="setRating(4)"
+                    >
+                      ★
+                    </button>
+                    <button
+                      class="cursor-pointer text-gray-300"
+                      onclick="setRating(5)"
+                    >
+                      ★
+                    </button>
+                  </div>
+                </div>
+                <textarea
+                  id="reviewText"
+                  placeholder="Share your experience..."
+                  rows="4"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 mb-3"
+                ></textarea>
+                <button
+                  onclick="submitReview()"
+                  class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition"
+                >
+                  Submit Review
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <div id="cartSidebar" class="cart-sidebar">
+      <div
+        class="sticky top-0 bg-white border-b p-6 flex items-center justify-between"
+      >
+        <h2 class="text-2xl font-bold">Shopping Cart</h2>
+        <button onclick="toggleCart()" class="text-gray-500 text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="p-6">
+        <div id="cartItems" class="space-y-4 mb-6 min-h-32"></div>
+
+        <div id="cartEmpty" class="text-center py-12 text-gray-500">
+          <i class="fas fa-shopping-cart text-4xl mb-4 block opacity-30"></i>
+          <p>Your cart is empty</p>
+        </div>
+
+        <div id="cartSummary" class="border-t border-gray-200 pt-4 hidden">
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between">
+              <span>Subtotal</span><span id="subtotal">₹0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Tax (18%)</span><span id="tax">₹0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Shipping</span
+              ><span id="shipping" class="text-green-600">FREE</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center mb-4 pb-4 border-t">
+            <span class="font-bold">Total</span>
+            <span id="total" class="text-2xl font-bold text-orange-500"
+              >₹0</span
+            >
+          </div>
+
+          <button
+            onclick="proceedToCheckout()"
+            class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg mb-3"
+          >
+            Checkout
+          </button>
+          <button
+            onclick="clearCart()"
+            class="w-full text-red-500 font-semibold py-2"
+          >
+            Clear Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkoutModal" class="modal">
+      <div class="modal-content p-0">
+        <div
+          class="sticky top-0 bg-white border-b flex items-center justify-between p-6"
+        >
+          <h2 class="text-2xl font-bold">Checkout</h2>
+          <button onclick="closeCheckoutModal()" class="text-gray-500 text-2xl">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="p-6">
+          <div class="flex items-center justify-center gap-4 mb-8">
+            <div
+              id="step1"
+              class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold"
+            >
+              1
+            </div>
+            <div class="h-1 w-24 bg-gray-300"></div>
+            <div
+              id="step2"
+              class="w-12 h-12 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold"
+            >
+              2
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div id="checkoutForm" class="lg:col-span-2">
+              <h2 class="text-2xl font-bold mb-6">Delivery Address</h2>
+              <div class="space-y-4">
+                <input
+                  type="text"
+                  id="fullName"
+                  placeholder="Full Name"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                />
+                <div class="grid grid-cols-2 gap-4">
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                  />
+                  <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Phone"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                  />
+                </div>
+                <input
+                  type="text"
+                  id="address"
+                  placeholder="Address"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                />
+                <div class="grid grid-cols-3 gap-4">
+                  <input
+                    type="text"
+                    id="city"
+                    placeholder="City"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                  />
+                  <input
+                    type="text"
+                    id="state"
+                    placeholder="State"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                  />
+                  <input
+                    type="text"
+                    id="pincode"
+                    placeholder="Pincode"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-8 pt-8 border-t">
+                <h3 class="font-bold mb-4">Delivery Method</h3>
+                <label
+                  class="flex items-center p-3 border-2 border-orange-500 rounded-lg cursor-pointer mb-3"
+                >
+                  <input
+                    type="radio"
+                    name="delivery"
+                    value="home"
+                    checked
+                    class="w-4 h-4"
+                  />
+                  <span class="ml-3 font-semibold">Home Delivery (FREE)</span>
+                </label>
+                <label
+                  class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-orange-500"
+                >
+                  <input
+                    type="radio"
+                    name="delivery"
+                    value="pickup"
+                    class="w-4 h-4"
+                  />
+                  <span class="ml-3 font-semibold">Pickup (₹30)</span>
+                </label>
+              </div>
+
+              <button
+                onclick="goToPayment()"
+                class="w-full mt-8 bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600"
+              >
+                Continue to Payment <i class="fas fa-chevron-right ml-2"></i>
+              </button>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-6 h-fit">
+              <h3 class="text-lg font-bold mb-4">Order Summary</h3>
+              <div
+                id="checkoutItems"
+                class="space-y-3 mb-4 pb-4 border-b"
+              ></div>
+
+              <div class="space-y-2 mb-4 pb-4 border-b">
+                <div class="flex justify-between text-sm">
+                  <span>Subtotal</span><span id="checkoutSubtotal">₹0</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span>Tax (18%)</span><span id="checkoutTax">₹0</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span>Shipping</span><span id="checkoutShipping">FREE</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between">
+                <span class="font-bold">Total</span>
+                <span
+                  id="checkoutTotal"
+                  class="text-2xl font-bold text-orange-500"
+                  >₹0</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="paymentSection" class="hidden mt-8">
+            <h2 class="text-2xl font-bold mb-6">Payment Method</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div class="lg:col-span-2">
+                <div class="space-y-3 mb-6">
+                  <label
+                    class="flex items-start p-4 border-2 border-orange-500 rounded-lg cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="card"
+                      checked
+                      class="w-4 h-4 mt-1"
+                    />
+                    <div class="ml-3">
+                      <p class="font-semibold">💳 Credit/Debit Card</p>
+                      <p class="text-sm text-gray-600">
+                        Visa, Mastercard, RuPay
+                      </p>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-orange-500"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="upi"
+                      class="w-4 h-4 mt-1"
+                    />
+                    <div class="ml-3">
+                      <p class="font-semibold">📱 UPI</p>
+                      <p class="text-sm text-gray-600">Google Pay, PhonePe</p>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-orange-500"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="cod"
+                      class="w-4 h-4 mt-1"
+                    />
+                    <div class="ml-3">
+                      <p class="font-semibold">💵 Cash on Delivery</p>
+                      <p class="text-sm text-gray-600">Pay on delivery</p>
+                    </div>
+                  </label>
+                </div>
+
+                <button
+                  onclick="placeOrder()"
+                  class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600"
+                >
+                  Place Order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-12 py-12">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <div
+                class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white font-bold">E</span>
+              </div>
+              <span class="font-bold text-xl">EcoMart</span>
+            </div>
+            <p class="text-gray-400">Trusted marketplace</p>
+          </div>
+          <div>
+            <h3 class="font-bold mb-4">Company</h3>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-orange-500">About</a></li>
+              <li><a href="#" class="hover:text-orange-500">Careers</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-bold mb-4">Support</h3>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li><a href="#" class="hover:text-orange-500">Contact</a></li>
+              <li><a href="#" class="hover:text-orange-500">FAQs</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-bold mb-4">Follow</h3>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-orange-500"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>© 2025 EcoMart. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
